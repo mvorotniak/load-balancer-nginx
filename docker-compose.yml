@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  load_balancer:
+    build: ./load-balancer
+    container_name: load_balancer
+    volumes:
+      - ./load-balancer/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - '8080:80'
+        
+  uk_server:
+    image: nginx:alpine
+    container_name: uk_server
+    volumes:
+      - ./uk-server/html:/usr/share/nginx/html
+      - ./uk-server/nginx.conf:/etc/nginx/nginx.conf
+        
+  us_server_1:
+    image: nginx:alpine
+    container_name: us_server_1
+    volumes:
+      - ./us-server-1/html:/usr/share/nginx/html
+      - ./us-server-1/nginx.conf:/etc/nginx/nginx.conf
+        
+  us_server_2:
+    image: nginx:alpine
+    container_name: us_server_2
+    volumes:
+      - ./us-server-2/html:/usr/share/nginx/html
+      - ./us-server-2/nginx.conf:/etc/nginx/nginx.conf
+        
+  world_server:
+    image: nginx:alpine
+    container_name: world_server
+    volumes:
+      - ./world-server/html:/usr/share/nginx/html
+      - ./world-server/nginx.conf:/etc/nginx/nginx.conf
+
+    
